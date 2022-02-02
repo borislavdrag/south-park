@@ -2,7 +2,6 @@ import spacy
 import pandas as pd
 
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 class KeepColumns(BaseEstimator, TransformerMixin):
@@ -49,7 +48,7 @@ class CleanData(BaseEstimator, TransformerMixin):
                              .str.replace(' +', ' ', regex=True) \
                              .replace(self.umlauts, regex=True) \
                              .str.lower() \
-                             .apply(lambda x: [word.lemma_ for word in self.nlp(x)]) \
+                             .apply(lambda x: [word.lemma_ for word in self.nlp(str(x))]) \
                              .apply(lambda x: [item for item in x if item not in self.stopwords]) \
                              .str.join(' ')
 
