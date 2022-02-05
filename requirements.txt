@@ -1,0 +1,11 @@
+Flask
+joblib
+numpy
+openpyxl
+pandas
+pip
+requests
+scikit-learn
+scipy
+spacy
+xgboost

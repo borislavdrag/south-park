@@ -38,3 +38,8 @@ def get_pipe(model_type='xgboost', vec_method='tfidf'):
     }
 
     return model_pipe[model_type]
+
+# Note: in a productive application pipelines won't be used as much to
+# select type of model, as to select a model with other parameters or
+# data types: depending on input, maximizing variable, filter of data
+
