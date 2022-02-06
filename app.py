@@ -2,11 +2,12 @@ from flask import Flask, request, render_template
 import pandas as pd
 import joblib
 from GrantClassifier import GrantClassifier
+import settings
 
 
 # Declare a Flask app
 app = Flask(__name__)
-model = joblib.load("models/grantclf_xgb_05-02-2022.pkl")
+model = joblib.load(settings.MODEL)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
