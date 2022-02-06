@@ -3,6 +3,7 @@ import joblib
 from time import time
 from datetime import date
 
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -58,7 +59,13 @@ class GrantClassifier:
         self.evaluate(test_X, test_y)
 
     def predict(self, X: pd.Series):
-        return self.encoder.inverse_transform(self.model.predict(X))
+        predictions = self.encoder.inverse_transform(self.model.predict(X))
+
+        # manual rules:
+        predictions = np.where(X[self.covariate].str.contains("Kosten für die Beschäftigung"), "Sport", predictions)
+
+        return predictions
+
 
     def save_model(self, filename: str):
         if not filename:
@@ -87,4 +94,5 @@ if __name__ == '__main__':
     show_model.train_and_test(data_small)
     print("Sample predictions:")
     print(show_model.predict(data.tail(10)))
+    print(show_model.predict(data[data["Zweck"].str.contains("Kosten für die Be")].head(2)))
 
