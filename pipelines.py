@@ -21,9 +21,9 @@ def get_pipe(model_type='xgboost', vec_method='tfidf'):
         ('preprocess', CleanData(covariate='Zweck')), 
         ('vectorizer', vector_pipe[vec_method]),
         ('clf', xgb.XGBClassifier(objective='multi:softprob',
-                                  eval_metric='merror',
-                                  max_depth=3,
-                                  n_estimators=40,
+                                  eval_metric='mae',
+                                  max_depth=7,
+                                  n_estimators=200,
                                   learning_rate=0.1,
                                   use_label_encoder=False,
                                   n_jobs=8,
@@ -34,7 +34,9 @@ def get_pipe(model_type='xgboost', vec_method='tfidf'):
         ('preprocess', CleanData(covariate='Zweck')), 
         ('vectorizer', vector_pipe[vec_method]),
         ('clf', nb.MultinomialNB())
-        ])
+        ]),
+
+        #  'cnn':  # DLC
     }
 
     return model_pipe[model_type]

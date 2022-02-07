@@ -1,2 +1,2 @@
-MODEL = "models/grantclf_xgb_05-02-2022.pkl"
+MODEL = "models/grantclf_xgb_07-02-2022.pkl"
 
