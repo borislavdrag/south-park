@@ -17,8 +17,8 @@ def get_pipe(model_type='xgboost', vec_method='tfidf'):
 
     model_pipe = {
         'xgboost': Pipeline([
-        ('columns', KeepColumns(cols=['Zweck'])),
-        ('preprocess', CleanData(covariate='Zweck')), 
+        ('columns', KeepColumns(cols=['line'])),
+        ('preprocess', CleanData(covariate='line')), 
         ('vectorizer', vector_pipe[vec_method]),
         ('clf', xgb.XGBClassifier(objective='multi:softprob',
                                   eval_metric='mae',
@@ -30,8 +30,8 @@ def get_pipe(model_type='xgboost', vec_method='tfidf'):
                                   verbosity=1))
         ]),
         'bayes': Pipeline([
-        ('columns', KeepColumns(cols=['Zweck'])),
-        ('preprocess', CleanData(covariate='Zweck')), 
+        ('columns', KeepColumns(cols=['line'])),
+        ('preprocess', CleanData(covariate='line')), 
         ('vectorizer', vector_pipe[vec_method]),
         ('clf', nb.MultinomialNB())
         ]),

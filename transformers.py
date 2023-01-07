@@ -34,8 +34,7 @@ class CleanData(BaseEstimator, TransformerMixin):
     def __init__(self, covariate: str):
         self.covariate = covariate
         
-        self.umlauts = {'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'ß': 'ss'}
-        self.nlp = spacy.load('de_core_news_sm')
+        self.nlp = spacy.load('en_core_web_sm')
         self.stopwords = self.nlp.Defaults.stop_words
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
@@ -43,10 +42,10 @@ class CleanData(BaseEstimator, TransformerMixin):
 
     def transform(self, X: pd.DataFrame):
         X[self.covariate] = X[self.covariate] \
+                             .str.replace('\[[^]]*\]', ' ', regex=True) \
                              .str.replace('[^\w\s]+', ' ', regex=True) \
                              .str.replace('\d+', ' ', regex=True) \
                              .str.replace(' +', ' ', regex=True) \
-                             .replace(self.umlauts, regex=True) \
                              .str.lower() \
                              .apply(lambda x: [word.lemma_ for word in self.nlp(str(x))]) \
                              .apply(lambda x: [item for item in x if item not in self.stopwords]) \

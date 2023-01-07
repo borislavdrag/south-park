@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import pandas as pd
 import joblib
-from GrantClassifier import GrantClassifier
+from DialogueMapper import DialogueMapper
 import settings
 
 
@@ -16,10 +16,10 @@ def main():
     if request.method == "POST":
         
         # Get values through input bars
-        zweck = request.form.get("zweck")
+        line = request.form.get("line")
         
         # Put inputs to dataframe
-        X = pd.DataFrame([[zweck]], columns = ["Zweck"])
+        X = pd.DataFrame([[line]], columns = ["line"])
         
         # Get prediction
         preds = model.predict(X)[0]
@@ -27,7 +27,7 @@ def main():
         return render_template("website.html", output=preds)
 
     else:
-        return render_template("website.html", output="*Predicted purpose*")
+        return render_template("website.html", output="*Predicted character*")
         
 
 # Running the app

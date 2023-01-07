@@ -6,7 +6,7 @@ RUN apt-get update && \
 COPY requirements.txt /requirements.txt
 
 RUN pip install -r requirements.txt && \
-    python -m spacy download de
+    python -m spacy download en
 
 ADD . /app
 

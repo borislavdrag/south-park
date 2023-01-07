@@ -1,7 +1,7 @@
-# Grant Classification
+# South Park Character Analysis
 
-Classifies text data (short descriptions of government grants).
+Maps dialogue lines from the TV Series South Park to the character who said it.
 
-Uses Python and xgboost.
+Uses Python and xgboost to solve this simple text classification problem.
 
-Data used: https://www.berlin.de/sen/finanzen/service/zuwendungsdatenbank/
+Data used: https://www.kaggle.com/datasets/mustafacicek/south-park-scripts-dataset
