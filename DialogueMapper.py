@@ -9,6 +9,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 
+from sklearn.metrics import confusion_matrix
+
 from pipelines import get_pipe
 logger = logging.getLogger('DialogueMapper')
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +36,9 @@ class DialogueMapper:
     def evaluate(self, test_X: pd.DataFrame, test_y: pd.Series):
         test_y = self.encoder.transform(test_y)
         predictions = self.model.predict(test_X)
+
+        matrix = confusion_matrix(test_y, predictions)
+        print(matrix.diagonal()/matrix.sum(axis=1))
 
         # TODO: f1 and auc need fixing
         accuracy = accuracy_score(predictions, test_y)
